@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+    <p>Hello from home.html!</p>
+    <p>ぴぎまる! {{ myvar['長男'] }}</p>
+    <a href="{{ url_for('error') }}">エラーページ</a>
+{% endblock %}
