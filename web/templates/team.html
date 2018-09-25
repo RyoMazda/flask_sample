@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Team</h2>
+    <p>db test</p>
+    <div class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>順位</th>
+                <th>チーム名</th>
+                <th>スコア</th>
+                <th>最終提出</th>
+            </thead>
+            <tbody>
+            {% for team in teams %}
+                <tr {% if (g.team and g.team == team) %}class="table-active"{% endif %}>
+                    <th>
+                        {{ loop.index }}
+                    </th>
+                    <th>
+                        {{ team.name }}
+                    </th>
+{#                    <td>#}
+{#                        {{ team.last_submit.score }}#}
+{#                    </td>#}
+{#                    <td>#}
+{#                        {{ team.last_submit.time }}#}
+{#                    </td>#}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="container">
+{% endblock %}

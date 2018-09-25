@@ -2,8 +2,26 @@ version: '3'
 
 services:
   web:
-    build: .
+    build: ./web
     ports:
       - 80:5000
     volumes:
-      - .:/app
+      - ./web:/app
+    depends_on:
+      - db
+    environment:
+      - APP_SECRET_KEY=pigi_point
+      - DB_HOST=mysql://pigicon:pigicon@db:3306/pigicon?charset=utf8
+
+  db:
+    build:
+      context: ./db
+    ports:
+      - "3306:3306"
+#    volumes:
+#      - ./db/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=tokumaru
+      - MYSQL_USER=pigicon
+      - MYSQL_PASSWORD=pigicon
+      - MYSQL_DATABASE=pigicon

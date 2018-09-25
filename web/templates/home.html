@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    <p>Hello from home.html!</p>
+    <p>Environmental variables</p>
+    <ul>
+        <li>APP_SECRET_KEY: {{ myvar['env1'] }}</li>
+        <li>DB_HOST: {{ myvar['env2'] }}</li>
+    </ul>
+
+    <a href="{{ url_for('error') }}">エラーページ</a>
+    <a href="{{ url_for('init_db') }}">db初期化</a>
+    <a href="{{ url_for('teams') }}">dbに接続テスト</a>
+{% endblock %}
