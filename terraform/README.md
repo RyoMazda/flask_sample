@@ -1,7 +1,7 @@
 # 質問
 * DBのpasswordとかどうする？
   - なんかrandomなんちゃらmodule使うらしい
-* tagどうするんだっけ？
+* tagどうするんだっけ？あとkey,valueの恩恵の受け方知りたい
 * private subnetにnat繋げなくてRDSは大丈夫か？
 * ECSのimageをupdateしたときの運用どうすればよい？
   - 現状
