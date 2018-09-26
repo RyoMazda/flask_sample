@@ -1,3 +1,7 @@
+# 参考
+* https://qiita.com/minamijoyo/items/1f57c62bed781ab8f4d7
+
+
 # 質問
 * DBのpasswordとかどうする？
   - なんかrandomなんちゃらmodule使うらしい
