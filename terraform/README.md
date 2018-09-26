@@ -1,3 +1,12 @@
+# 質問
+* DBのpasswordとかどうする？
+  - なんかrandomなんちゃらmodule使うらしい
+* tagどうするんだっけ？
+* private subnetにnat繋げなくてRDSは大丈夫か？
+* ECSのimageをupdateしたときの運用どうすればよい？
+
+
+
 * consoleで実験するようがap-northeast-2 (Saul)
 * terraform実験用が ap-southeast-1 (Singapore)
 
