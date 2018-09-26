@@ -2,11 +2,11 @@
 # VPC
 # ----------
 resource "aws_vpc" "main" {
-  cidr_block           = "10.15.0.0/16"
-  instance_tenancy     = "default"      // default
-  enable_dns_support   = "true"         // default
+  cidr_block           = "${var.vpc_cidr}"
+  instance_tenancy     = "default"         // default
+  enable_dns_support   = "true"            // default
   enable_dns_hostnames = "true"
-  enable_classiclink   = "false"        // default
+  enable_classiclink   = "false"           // default
 
   tags {
     Name = "tf-test"
@@ -18,7 +18,7 @@ resource "aws_vpc" "main" {
 # ----------
 resource "aws_subnet" "public" {
   vpc_id                  = "${aws_vpc.main.id}"
-  cidr_block              = "10.15.1.0/24"
+  cidr_block              = "${lookup(var.subnet_cidrs, "public")}"
   map_public_ip_on_launch = "true"
   availability_zone       = "${var.AWS_MAIN_AZ}"
 

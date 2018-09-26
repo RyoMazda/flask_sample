@@ -4,6 +4,12 @@
 * tagどうするんだっけ？
 * private subnetにnat繋げなくてRDSは大丈夫か？
 * ECSのimageをupdateしたときの運用どうすればよい？
+  - 現状
+    - 手動でecr repository作る
+    - 該当git repoのdroneとかにimageをpushするようにする
+    - tfvarsにecrの情報を書いてtask defを作る
+    - imageがpushされたらtaskをrerunする設定どうする？
+      - lifecycleとかでできるのか？
 
 
 
