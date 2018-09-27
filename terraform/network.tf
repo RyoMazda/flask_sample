@@ -59,3 +59,65 @@ resource "aws_route_table_association" "main-public-1a" {
   subnet_id      = "${aws_subnet.public.id}"
   route_table_id = "${aws_route_table.main-public.id}"
 }
+
+# ----------
+# Security Group
+# ----------
+
+# for ecs with elb
+resource "aws_security_group" "elb-sg" {
+  vpc_id      = "${aws_vpc.main.id}"
+  name        = "elb-sg"
+  description = "security group for ecs"
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags {
+    Name = "fs-elb-sg"
+  }
+}
+
+resource "aws_security_group" "ecs-ec2-instance-sg" {
+  vpc_id      = "${aws_vpc.main.id}"
+  name        = "ecs-ec2-instance-sg"
+  description = "security group for ecs"
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port = 80
+    to_port   = 80
+    protocol  = "tcp"
+
+    //    security_groups = ["${aws_security_group.elb-sg.id}"]
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags {
+    Name = "ecs"
+  }
+}

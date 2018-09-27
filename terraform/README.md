@@ -1,5 +1,7 @@
 # 参考
 * https://qiita.com/minamijoyo/items/1f57c62bed781ab8f4d7
+## ECSのterraform化
+* https://christina04.hatenablog.com/entry/2016/07/28/015718
 
 
 # 質問
@@ -11,8 +13,9 @@
   - 現状
     - terraformでecr repository作る
     - 該当git repoのdroneとかにimageをpushするようにする
-    - imageがpushされたらtaskをrerunする設定どうする？
-      - lifecycleとかでできるのか？
+    - 合わせてaws ecr service update的なのすればよい
+  - 問題点
+    - destroyしたあとapplyするとecrにimageをpushしてない状態でtask defしちゃうので微妙
 
 
 

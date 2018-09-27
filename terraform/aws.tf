@@ -5,9 +5,9 @@ provider "aws" {
 }
 
 terraform {
-    backend "s3" {
-        bucket = "terraform-state-flask-sample"
-        key = "pigimaru/terraform.tfstate"
-        region = "ap-southeast-1"
-    }
+  backend "s3" {
+    bucket = "terraform-state-flask-sample"
+    key    = "pigimaru/terraform.tfstate"
+    region = "ap-southeast-1"
+  }
 }

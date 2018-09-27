@@ -34,3 +34,31 @@ variable "subnet_cidrs" {
     "public" = "10.15.1.0/24"
   }
 }
+
+# ----------
+# ECS
+# ----------
+variable "path_to_private_key" {
+  default = "mykey"
+}
+
+variable "path_to_public_key" {
+  default = "mykey.pub"
+}
+
+variable "ecs_image_id" {
+  type = "map"
+
+  default = {
+    ap-northeast-1 = "ami-08681de00a0aae54f"
+    ap-southeast-1 = "ami-0a3f70f0255af1d29"
+  }
+}
+
+variable "ecs_instance_type" {
+  default = "t2.micro"
+}
+
+variable "container_name" {
+  default = "fs-container"
+}

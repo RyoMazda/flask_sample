@@ -1,0 +1,19 @@
+[
+  {
+    "essential": true,
+    "memory": 256,
+    "name": "${container_name}",
+    "cpu": 256,
+    "image": "${REPOSITORY_URL}:latest",
+    "portMappings": [
+      {
+        "hostPort": 80,
+        "containerPort": 5000
+      }
+    ],
+    "environment" : [
+      { "name" : "APP_SECRET_KEY", "value" : "pigi_point" },
+      { "name" : "DB_HOST", "value" : "mysql://hoge@fuga@hodoc.com:3306" }
+    ]
+  }
+]
