@@ -13,7 +13,7 @@
     ],
     "environment" : [
       { "name" : "APP_SECRET_KEY", "value" : "pigi_point" },
-      { "name" : "DB_HOST", "value" : "mysql://hoge@fuga@hodoc.com:3306" }
+      { "name" : "DB_HOST", "value" : "${DB_HOST}" }
     ]
   }
 ]

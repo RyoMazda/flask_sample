@@ -1,4 +1,17 @@
-# key for ssh
+# ----------
+# ECR
+# ----------
+resource "aws_ecr_repository" "flask-sample" {
+  name = "practice2018/flask-sample"
+}
+
+output "ecr-repository-URL" {
+  value = "${aws_ecr_repository.flask-sample.repository_url}"
+}
+
+# ----------
+# Key for ssh
+# ----------
 resource "aws_key_pair" "ecs-key" {
   key_name   = "ecs-key"
   public_key = "${file("${var.path_to_public_key}")}"
@@ -53,6 +66,7 @@ data "template_file" "fs-container-definition-template" {
   vars {
     REPOSITORY_URL = "${replace("${aws_ecr_repository.flask-sample.repository_url}", "https://", "")}"
     container_name = "${var.container_name}"
+    DB_HOST        = "mysql://${var.rds_master_username}:${var.rds_master_password}@${aws_rds_cluster.db_cluster.endpoint}:3306/${var.db_name}?charset=utf8"
   }
 }
 
@@ -72,7 +86,7 @@ resource "aws_ecs_service" "fs-service" {
   desired_count   = 1
 }
 
-# with ELB
+# with ELB version
 /*
 resource "aws_ecs_service" "fs-service" {
   name            = "fs-service"
@@ -91,6 +105,72 @@ resource "aws_ecs_service" "fs-service" {
   lifecycle {
     ignore_changes = ["task_definition"]
   }
+}
+
+# ----------
+# ELB
+# ----------
+# ecs service role for ELB
+/*
+resource "aws_iam_role" "ecs-service-role" {
+  name = "ecs-service-role"
+
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "ecs.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_policy_attachment" "ecs-service-attach1" {
+  name       = "ecs-service-attach1"
+  roles      = ["${aws_iam_role.ecs-service-role.name}"]
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceRole"
+}
+
+resource "aws_elb" "fs-elb" {
+  name = "fs-elb"
+
+  listener {
+    instance_port     = 80
+    instance_protocol = "http"
+    lb_port           = 80
+    lb_protocol       = "http"
+  }
+
+  health_check {
+    healthy_threshold   = 3
+    unhealthy_threshold = 3
+    timeout             = 30
+    target              = "HTTP:80/"
+    interval            = 60
+  }
+
+  cross_zone_load_balancing   = true
+  idle_timeout                = 400
+  connection_draining         = true
+  connection_draining_timeout = 400
+
+  subnets         = ["${aws_subnet.public.id}"]
+  security_groups = ["${aws_security_group.elb-sg.id}"]
+
+  tags {
+    Name = "fs-elb"
+  }
+}
+
+output "elb-dns-name" {
+  value = "${aws_elb.fs-elb.dns_name}"
 }
 */
 

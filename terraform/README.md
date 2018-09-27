@@ -1,29 +1,38 @@
 # 参考
 * https://qiita.com/minamijoyo/items/1f57c62bed781ab8f4d7
+
 ## ECSのterraform化
 * https://christina04.hatenablog.com/entry/2016/07/28/015718
 
+## RDS MySQL Aurora
+* https://www.terraform.io/docs/providers/aws/r/rds_cluster.html
+* https://nisshiee.hatenablog.jp/entry/2017/04/14/230339
+
 
 # 質問
+* ELB設定すべきか？autoscalingは？
+* ssh keyどうdroneで渡すか？
+* web socketめんどそう
 * DBのpasswordとかどうする？
   - なんかrandomなんちゃらmodule使うらしい
-* tagどうするんだっけ？あとkey,valueの恩恵の受け方知りたい
 * private subnetにnat繋げなくてRDSは大丈夫か？
+  - 大丈夫そう
 * ECSのimageをupdateしたときの運用どうすればよい？
   - 現状
     - terraformでecr repository作る
     - 該当git repoのdroneとかにimageをpushするようにする
     - 合わせてaws ecr service update的なのすればよい
   - 問題点
+    - 初めecr repoだけ作ってimage pushしてからecsのtf applyしないとerror
     - destroyしたあとapplyするとecrにimageをpushしてない状態でtask defしちゃうので微妙
+ * db instanceのendpointをcontainerのdefinitionにうまく使う方法はあるか？
 
 
-
+# インフラ構成メモ
 * consoleで実験するようがap-northeast-2 (Saul)
 * terraform実験用が ap-southeast-1 (Singapore)
 
 
-# インフラ構成メモ
 ## 概要
 ### WEBサーバー
 * ECSで

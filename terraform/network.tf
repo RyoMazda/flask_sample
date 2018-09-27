@@ -27,6 +27,28 @@ resource "aws_subnet" "public" {
   }
 }
 
+resource "aws_subnet" "private-1" {
+  vpc_id                  = "${aws_vpc.main.id}"
+  cidr_block              = "${lookup(var.subnet_cidrs, "private-1")}"
+  map_public_ip_on_launch = "true"
+  availability_zone       = "${var.AWS_MAIN_AZ}"
+
+  tags {
+    Name = "tf-test"
+  }
+}
+
+resource "aws_subnet" "private-2" {
+  vpc_id                  = "${aws_vpc.main.id}"
+  cidr_block              = "${lookup(var.subnet_cidrs, "private-2")}"
+  map_public_ip_on_launch = "true"
+  availability_zone       = "${var.AWS_SUB_AZ}"
+
+  tags {
+    Name = "tf-test"
+  }
+}
+
 # ----------
 # Internet Gateway
 # ----------
@@ -118,6 +140,32 @@ resource "aws_security_group" "ecs-ec2-instance-sg" {
   }
 
   tags {
-    Name = "ecs"
+    Name = "tf-test"
+  }
+}
+
+# rds
+resource "aws_security_group" "rds-sg" {
+  vpc_id      = "${aws_vpc.main.id}"
+  name        = "rds-sg"
+  description = "security group for RDS"
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+    self        = true
+  }
+
+  ingress {
+    from_port       = 3306
+    to_port         = 3306
+    protocol        = "tcp"
+    security_groups = ["${aws_security_group.ecs-ec2-instance-sg.id}"]
+  }
+
+  tags {
+    Name = "tf-test"
   }
 }

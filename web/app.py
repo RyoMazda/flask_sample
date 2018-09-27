@@ -75,8 +75,8 @@ def init_db():
     Base.metadata.create_all(bind=engine)  # テーブルを作成
 
     # Teamのテストデータ
-    team_list = [('pigimaru', 'sbt', 'imns', 'o', 'ganbarimasu', '127.0.0.1', 'password'),
-                 ('pigimaranai', 'wkwk', 'o', None, 'ganbarimasen', '192.168.0.1', 'abcd1234')]
+    team_list = [('ぴぎまる', 'sbt', 'imns', 'o', 'ganbarimasu', '127.0.0.1', 'password'),
+                 ('ぴぎまらない', 'wkwk', 'o', None, 'ganbarimasen', '192.168.0.1', 'abcd1234')]
     teams = list()
     for x in team_list:
         team = Team()

@@ -31,7 +31,9 @@ variable "subnet_cidrs" {
   type = "map"
 
   default = {
-    "public" = "10.15.1.0/24"
+    "public"    = "10.15.1.0/24"
+    "private-1" = "10.15.129.0/24"
+    "private-2" = "10.15.130.0/24"
   }
 }
 
@@ -62,3 +64,23 @@ variable "ecs_instance_type" {
 variable "container_name" {
   default = "fs-container"
 }
+
+# ----------
+# RDS
+# ----------
+variable "rds_master_username" {}
+
+variable "rds_master_password" {}
+
+variable "db_name" {
+  default = "fsdb"
+}
+
+variable "db_instance_type" {
+  default = "db.t2.small"
+}
+
+variable "db_instance_count" {
+  default = 1
+}
+
