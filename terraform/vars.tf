@@ -83,4 +83,3 @@ variable "db_instance_type" {
 variable "db_instance_count" {
   default = 1
 }
-
