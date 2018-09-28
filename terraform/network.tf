@@ -30,7 +30,7 @@ resource "aws_subnet" "public" {
 resource "aws_subnet" "private-1" {
   vpc_id                  = "${aws_vpc.main.id}"
   cidr_block              = "${lookup(var.subnet_cidrs, "private-1")}"
-  map_public_ip_on_launch = "true"
+  map_public_ip_on_launch = "false"
   availability_zone       = "${var.AWS_MAIN_AZ}"
 
   tags {
@@ -41,7 +41,7 @@ resource "aws_subnet" "private-1" {
 resource "aws_subnet" "private-2" {
   vpc_id                  = "${aws_vpc.main.id}"
   cidr_block              = "${lookup(var.subnet_cidrs, "private-2")}"
-  map_public_ip_on_launch = "true"
+  map_public_ip_on_launch = "false"
   availability_zone       = "${var.AWS_SUB_AZ}"
 
   tags {
@@ -81,6 +81,8 @@ resource "aws_route_table_association" "main-public-1a" {
   subnet_id      = "${aws_subnet.public.id}"
   route_table_id = "${aws_route_table.main-public.id}"
 }
+
+# private subnetsはdefaultのroute tableでよい
 
 # ----------
 # Security Group

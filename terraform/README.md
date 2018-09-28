@@ -10,11 +10,17 @@
 
 
 # 質問
-* ELB設定すべきか？autoscalingは？
-* ssh keyどうdroneで渡すか？
+## 未解決
+* iam roleのきれいな書き方
 * web socketめんどそう
 * DBのpasswordとかどうする？
   - なんかrandomなんちゃらmodule使うらしい
+
+## 解決済み
+* ELB設定すべきか？autoscalingは？
+  - テキトー
+* ssh keyどうdroneで渡すか？
+  - publicだからgithubから渡して良い
 * private subnetにnat繋げなくてRDSは大丈夫か？
   - 大丈夫そう
 * ECSのimageをupdateしたときの運用どうすればよい？
@@ -25,7 +31,6 @@
   - 問題点
     - 初めecr repoだけ作ってimage pushしてからecsのtf applyしないとerror
     - destroyしたあとapplyするとecrにimageをpushしてない状態でtask defしちゃうので微妙
- * db instanceのendpointをcontainerのdefinitionにうまく使う方法はあるか？
 
 
 # インフラ構成メモ
